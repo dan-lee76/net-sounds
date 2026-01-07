@@ -71,7 +71,7 @@ function App() {
     return (
         <>
             <h1 className="text-3xl text-white text-center p-3">Net Sound Board</h1>
-
+            <p className="text-white text-center p-3">More sounds coming soon</p>
             <div className="flex items-center justify-center gap-4 p-4">
                 <select
                     value={filter}
