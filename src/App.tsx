@@ -86,7 +86,7 @@ function App() {
         <>
             <h1 className="text-3xl text-white text-center p-3">Net Sound Board</h1>
             <p className="text-white text-center p-3">More sounds coming soon</p>
-            <div className="flex items-center justify-center gap-4 p-4">
+            <div className="items-center justify-center gap-4 p-4 grid grid-cols-2 ">
                 <select
                     value={filter}
                     onChange={e => setFilter(e.target.value as FilterType)}
@@ -102,11 +102,11 @@ function App() {
                 <select
                     value={line}
                     onChange={e => setLine(e.target.value as LineType)}
-                    className="p-2 rounded border-2 netGreen-text"
+                    className="p-2 rounded border-2 netGreen-text "
                 >
-                    <option value="all">All</option>
-                    <option value="Clifton">Clifton</option>
-                    <option value="Toton">Toton</option>
+                    <option value="all">All Lines</option>
+                    <option value="Clifton">Clifton Line</option>
+                    <option value="Toton">Toton Line</option>
                 </select>
 
                 <input
@@ -114,7 +114,7 @@ function App() {
                     placeholder="Search..."
                     value={search}
                     onChange={e => setSearch(e.target.value)}
-                    className="p-2 rounded border netGreen-text"
+                    className="p-2 rounded border-2 netGreen-text col-span-full"
                 />
             </div>
 
