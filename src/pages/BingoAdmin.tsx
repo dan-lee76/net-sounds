@@ -1,6 +1,6 @@
 // typescript
 // file: `src/App.tsx`
-import './App.css'
+import '../App.css'
 import { useEffect, useState } from 'react';
 
 type Sound = {
@@ -13,7 +13,7 @@ type Sound = {
 };
 
 type FilterType = 'all' | 'final' | 'next' | 'for' | 'other';
-type LineType = 'all' | 'Clifton' | 'Toton' | 'Central';
+type LineType = 'all' | 'Clifton' | 'Toton';
 
 function formatName(input: string): string {
     return input
@@ -25,12 +25,13 @@ function formatName(input: string): string {
         .trim();
 }
 
-function App() {
+function BingoAdmin() {
     const [sounds, setSounds] = useState<Sound[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [filter, setFilter] = useState<FilterType>('all');
     const [line, setLine] = useState<LineType>('all');
     const [search, setSearch] = useState<string>('');
+    const [history, setHistory] = useState<string[]>([]);
 
     useEffect(() => {
         let mounted = true;
@@ -66,9 +67,6 @@ function App() {
         if (line === 'Toton') {
             return formatName(s.line).includes('Toton');
         }
-        if (line === 'Central') {
-            return !formatName(s.line).includes('Clifton') && !formatName(s.line).includes('Toton');
-        }
         return false;
     }
 
@@ -80,6 +78,8 @@ function App() {
 
     const play = (url: string) => {
         const audio = new Audio(url);
+
+        setHistory(prev => [formatName(url), ...prev]);
         audio.play();
     };
 
@@ -88,7 +88,6 @@ function App() {
     return (
         <>
             <h1 className="text-3xl text-white text-center p-3">Net Sound Board</h1>
-            <p className="text-white text-center p-3">More sounds coming soon</p>
             <div className="items-center justify-center gap-4 p-4 grid grid-cols-2 ">
                 <select
                     value={filter}
@@ -110,7 +109,6 @@ function App() {
                     <option value="all">All Lines</option>
                     <option value="Clifton">Clifton Line</option>
                     <option value="Toton">Toton Line</option>
-                    <option value="Central">City Centre</option>
                 </select>
 
                 <input
@@ -120,6 +118,17 @@ function App() {
                     onChange={e => setSearch(e.target.value)}
                     className="p-2 rounded border-2 netGreen-text col-span-full"
                 />
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+                <div className="p-4">
+                    <h2 className="text-white text-xl mb-2">Played Sounds History</h2>
+                    <ul className="list-disc list-inside text-white">
+                        {history.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
 
             {loading && (
@@ -158,4 +167,4 @@ function App() {
     );
 }
 
-export default App;
+export default BingoAdmin;
